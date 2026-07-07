@@ -1,7 +1,7 @@
-﻿# 🎨 Master Design Patterns in Python
+# 🎨 Master Design Patterns in Python
 
 <p align="center">
-  <img src="https://images.unsplash.com/photo-1555949963-aa79dcee981c?q=80&w=2000&auto=format&fit=crop" alt="Design Patterns Banner" width="100%" style="border-radius:15px;"/>
+  <img src="https://images.unsplash.com/photo-1516116216624-53e697fedbea?q=80&w=2000&auto=format&fit=crop" alt="Design Patterns Banner" width="100%" style="border-radius:15px;"/>
 </p>
 
 <p align="center">
