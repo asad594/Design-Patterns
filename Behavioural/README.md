@@ -1,7 +1,7 @@
-﻿# 🧠 Behavioural Design Patterns
+# 🧠 Behavioural Design Patterns
 
 <p align="center">
-  <img src="https://images.unsplash.com/photo-1507721999472-8ed4421c4af2?q=80&w=2000&auto=format&fit=crop" alt="Behavioural Design Patterns Banner" width="100%" style="border-radius:15px;"/>
+  <img src="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?q=80&w=2000&auto=format&fit=crop" alt="Behavioural Design Patterns Banner" width="100%" style="border-radius:15px;"/>
 </p>
 
 <p align="center">
