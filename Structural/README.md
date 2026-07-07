@@ -1,7 +1,7 @@
 # ??? Structural Design Patterns
 
 <p align="center">
-  <img src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?q=80&w=2000&auto=format&fit=crop" alt="Structural Design Patterns" width="100%" style="border-radius:15px;"/>
+  <img src="https://images.unsplash.com/photo-1605379399642-870262d3d051?q=80&w=2000&auto=format&fit=crop" alt="Structural Design Patterns Banner" width="100%" style="border-radius:15px;"/>
 </p>
 
 <p align="center">
@@ -19,7 +19,7 @@ This repository contains implementations of the following structural design patt
 | Pattern | Description | Implementation |
 | :--- | :--- | :--- |
 | **?? Adapter** | Allows objects with incompatible interfaces to collaborate. | [Adapter.py](./Adapter.py) |
-| **?? Bridge** | Splits a large class or a set of closely related classes into two separate hierarchies—abstraction and implementation. | [Bridge.py](./Bridge.py) |
+| **?? Bridge** | Splits a large class or a set of closely related classes into two separate hierarchiesâ€”abstraction and implementation. | [Bridge.py](./Bridge.py) |
 | **?? Composite** | Composes objects into tree structures and lets you work with these structures as if they were individual objects. | [Composite.py](./Composite.py) |
 | **?? Decorator** | Attaches new behaviors to objects by placing these objects inside special wrapper objects. | [Decorator.py](./Decorator.py) |
 | **?? Facade** | Provides a simplified, higher-level interface to a complex subsystem of classes. | [Facade.py](./Facade.py) |
