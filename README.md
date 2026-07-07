@@ -1,7 +1,7 @@
-# 🎨 Master Design Patterns in Python
+﻿# ðŸŽ¨ Master Design Patterns in Python
 
 <p align="center">
-  <img src="https://images.unsplash.com/photo-1516116216624-53e697fedbea?q=80&w=2000&auto=format&fit=crop" alt="Design Patterns Banner" width="100%" style="border-radius:15px;"/>
+  <img src="https://images.unsplash.com/photo-1542831371-29b0f74f9713?q=80&w=2000&auto=format&fit=crop" alt="Design Patterns Banner" width="100%" style="border-radius:15px;"/>
 </p>
 
 <p align="center">
@@ -11,25 +11,25 @@
 
 ---
 
-## 🗂️ Repository Structure
+## ðŸ—‚ï¸ Repository Structure
 
 This repository is organized into the three main categories of design patterns proposed by the Gang of Four (GoF):
 
-### 1. [🏗️ Creational Patterns](./Creational)
+### 1. [ðŸ—ï¸ Creational Patterns](./Creational)
 Creational design patterns provide various object creation mechanisms, which increase flexibility and reuse of existing code.
 - *Includes: Factory Method, Abstract Factory, Builder, Prototype, Singleton.*
 
-### 2. [🧩 Structural Patterns](./Structural)
+### 2. [ðŸ§© Structural Patterns](./Structural)
 Structural design patterns explain how to assemble objects and classes into larger structures, while keeping these structures flexible and efficient.
 - *Includes: Adapter, Bridge, Composite, Decorator, Facade, Flyweight, Proxy.*
 
-### 3. [🧠 Behavioural Patterns](./Behavioural)
+### 3. [ðŸ§  Behavioural Patterns](./Behavioural)
 Behavioral design patterns are concerned with algorithms and the assignment of responsibilities between objects.
 - *Includes: Chain of Responsibility, Command, Iterator, Mediator, Memento, Observer, State, Strategy, Template Method, Visitor.*
 
 ---
 
-## 🚀 Getting Started
+## ðŸš€ Getting Started
 
 To explore the patterns, navigate to the specific directories. Each directory contains standalone Python (.py) scripts that clearly demonstrate how each pattern is implemented and used.
 
@@ -44,13 +44,14 @@ cd Design-Patterns/Structural
 python Adapter.py
 `
 
-## 📖 Why Learn Design Patterns?
+## ðŸ“– Why Learn Design Patterns?
 1. **Proven Solutions:** They provide tested, proven development paradigms.
 2. **Common Vocabulary:** They give developers a common vocabulary to discuss software architecture.
 3. **Clean Code:** They help build highly cohesive and loosely coupled software.
 
-## 🤝 Contributing
+## ðŸ¤ Contributing
 Contributions are always welcome! Feel free to open a Pull Request to add more examples, documentation, or even implementations in other languages.
 
 ---
-<p align="center"><i>Happy Coding! ✨</i></p>
+<p align="center"><i>Happy Coding! âœ¨</i></p>
+
