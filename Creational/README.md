@@ -1,7 +1,7 @@
-﻿# 🏗️ Creational Design Patterns
+# 🏗️ Creational Design Patterns
 
 <p align="center">
-  <img src="https://images.unsplash.com/photo-1581092335397-9583eb92d232?q=80&w=2000&auto=format&fit=crop" alt="Creational Design Patterns Banner" width="100%" style="border-radius:15px;"/>
+  <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=2000&auto=format&fit=crop" alt="Creational Design Patterns Banner" width="100%" style="border-radius:15px;"/>
 </p>
 
 <p align="center">
