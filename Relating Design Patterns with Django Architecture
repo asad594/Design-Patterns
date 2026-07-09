@@ -1,0 +1,93 @@
+Sawal 1: Kaunse Patterns Django Mein Already Handled Hain?
+1. Singleton
+Kya hai: Ek aisi class jiska sirf ek hi object poori application mein bane, bar bar naya na banaya jaye.
+Django mein kahan: settings.py file — jab tum from django.conf import settings karte ho, Django poori application mein ek hi settings object deta hai, har jagah wahi instance use hota hai. Naya banane ki zaroorat nahi.
+Kyun already handled hai: Django ka apps registry aur settings loader internally isko manage karta hai — tumhe koi Singleton class khud likhne ki zaroorat nahi.
+2. Factory Method
+Kya hai: Ek aisa mechanism jo tumhare liye object "bana kar" de, bina tumhe manually constructor call kiye.
+Django mein kahan: DRF Serializer — JobSerializer(data=request.data) likhte hi, ek validated Job object "factory" ki tarah ban jata hai.
+Kyun already handled hai: Tumhe khud se "if valid then create object" wala logic nahi likhna — Serializer class yeh internally karti hai.
+3. Builder
+Kya hai: Complex object ko step by step pieces jorh kar banane ka tareeqa.
+Django mein kahan: QuerySet chaining — Job.objects.filter(status='published').exclude(location='Karachi').order_by('-created_at')
+Kyun already handled hai: Har .filter(), .exclude() ek step add karta hai final query mein — yeh exactly Builder pattern hai, jo Django ka ORM khud implement kar chuka hai.
+4. Decorator
+Kya hai: Kisi function/class ko bina uska original code chede, extra behavior "wrap" kar dena.
+Django mein kahan: @permission_classes([IsAuthenticated]), @api_view(['GET'])
+Kyun already handled hai: Yeh Python ka decorator syntax hai jo DRF use karta hai — tumhe manually koi wrapper class likhne ki zaroorat nahi.
+5. Template Method
+Kya hai: Ek base class jo poora process ka skeleton define kare, aur sirf kuch specific steps child class mein override hon.
+Django mein kahan: Tumhare JobDetailView(APIView) mein get(), put(), delete() — base APIView class ka dispatch() method already decide karta hai request kaise route hogi, authentication kab check hogi. Tum sirf specific action (get/put/delete) likhte ho.
+Kyun already handled hai: Poora request-handling flow (authentication → permission check → method call) already APIView mein defined hai.
+6. Chain of Responsibility
+Kya hai: Ek request multiple handlers se guzarti hai, har handler apna kaam kar ke aage bhej deta hai.
+Django mein kahan: MIDDLEWARE list settings.py mein — request pehle CORS middleware se guzarti hai, phir Auth middleware, phir Session middleware, phir view tak pohanchti hai.
+Kyun already handled hai: Middleware order settings.py mein already Django khud manage karta hai.
+7. Observer
+Kya hai: Jab ek event ho, to multiple "listeners" automatically trigger ho jayein.
+Django mein kahan: Signals — post_save signal. Jaise hi ek Job create hoti hai, tum @receiver(post_save, sender=Job) se listener laga sakte ho jo automatically email bhej de.
+Kyun already handled hai: Signal dispatch mechanism Django ka core feature hai, tumhe khud event system banane ki zaroorat nahi.
+8. Iterator
+Kya hai: Kisi collection ke items pe ek ek karke loop chalane ka standard tareeqa.
+Django mein kahan: for job in Job.objects.all(): — QuerySet Python ke iterator protocol ko follow karta hai.
+Kyun already handled hai: Tumhe khud __next__() method wagera likhne ki zaroorat nahi, QuerySet already iterable hai.
+9. Proxy (Partial)
+Kya hai: Ek object jo asal object ka "substitute" ban ke kaam kare, jaise lazy loading.
+Django mein kahan: Job.objects.filter(status='draft') likhne se turant database query nahi chalti — jab tak tum usko iterate ya print na karo, wo sirf ek "lazy QuerySet object" rehta hai.
+Kyun already handled hai: Yeh Django ORM ka internal optimization hai (lazy evaluation), tumhe manually implement nahi karna.
+
+Sawal 2: Kaunse Patterns Manually Implement Karne Chahiye?
+1. Strategy
+Kya hai: Ek hi kaam ke liye multiple tareeqe (algorithms) ho, aur runtime pe decide ho kaunsa use karna hai.
+Job Board mein example: Notification bhejna — kabhi email se, kabhi SMS se. Har channel ek alag "strategy class" ho:
+pythonclass EmailNotification:
+    def send(self, msg): ...
+class SMSNotification:
+    def send(self, msg): ...
+Kyun manually: Django khud yeh decision nahi leta ke tumhare business ko konsa notification channel chahiye — yeh tumhari apni logic hai.
+2. Facade
+Kya hai: Complex, multiple-step process ko ek simple interface ke peeche chhupa dena.
+Job Board mein example: Job apply karna — duplicate check + application create + email bhejna, teeno steps ek JobApplicationService.apply() function mein wrap kar do. View sirf ek line likhe:
+pythonJobApplicationService().apply(request.user, job)
+Kyun manually: Yeh tumhari business process hai, Django ka koi built-in "apply flow" nahi hota.
+3. Adapter
+Kya hai: Do incompatible interfaces ke beech "translator" ka kaam karna.
+Job Board mein example: Agar LinkedIn Jobs API se data lena ho, unka JSON format tumhare Job model se match nahi karega. Ek Adapter class banao jo unka format tumhare format mein convert kare.
+Kyun manually: Third-party API ka format tum control nahi kar sakte, isliye translation layer khud likhni padegi.
+4. Command
+Kya hai: Har action ko ek object ki tarah treat karna, jise queue mein daala ja sake, undo kiya ja sake, ya baad mein execute kiya ja sake.
+Job Board mein example: Celery async task — "SendJobAlertCommand" jo background mein subscribers ko email bheje.
+Kyun manually: Django khud "task queue" system nahi deta (Celery separate library hai), isliye yeh manually design karna padta hai.
+5. State
+Kya hai: Object ka behavior uske current state ke mutabiq badalna.
+Job Board mein example: Job ka status — draft → published → closed → archived. Har state mein different actions allowed hone chahiye (jaise closed job pe apply na ho sake).
+Kyun manually: Django ka status field sirf ek text/choice field hota hai — actual transition rules aur validation logic (draft se seedha archived nahi ja sakta) tumhe khud likhni hoti hai.
+6. Memento
+Kya hai: Object ka purana snapshot save karna taake baad mein undo/rollback ho sake.
+Job Board mein example: Job update karne se pehle purani values save kar lena (audit trail/history feature ke liye).
+Kyun manually: Django khud versioning system nahi deta (jab tak alag package use na karo), yeh manually implement karna padta hai.
+7. Mediator
+Kya hai: Multiple objects/services aapas mein directly baat na karein, balke ek beech wala coordinator unke through communicate kare.
+Job Board mein example: Jab job create ho, to Notification service, Analytics service, aur Search-index service teeno ko update karna ho — ek Mediator class in teeno ko coordinate kare taake Job model khud in teeno se directly coupled na ho.
+Kyun manually: Yeh pure business-specific coordination hai, Django ka koi built-in mediator nahi hota.
+8. Prototype
+Kya hai: Naya object banane ke bajaye, existing object ko clone karke thoda modify kar lena.
+Job Board mein example: Company rep ek purani job posting ko template ki tarah copy kar ke naya similar job jaldi bana le.
+Kyun manually: Yeh feature Django khud nahi deta, tumhe copy.deepcopy() ya manual clone logic likhna padega.
+
+Sawal 3: Kaunse Patterns Overuse Nahi Karne Chahiye?
+1. Abstract Factory
+Kya hai: Multiple related object families banane ka tareeqa (jaise ek factory jo alag-alag "themes" ke sets banaye).
+Kyun avoid karein: Job Board jaisi chhoti-medium app mein humein aisi zaroorat nahi ke hum multiple related object families create karein — yeh unnecessary complexity add karega bina kisi real fayde ke.
+2. Flyweight
+Kya hai: Bohot saare similar objects ke beech memory share karna (jaise game mein hazaron trees ka texture share karna).
+Kyun avoid karein: Web request/response cycle mein aam taur pe itni memory-heavy repetition nahi hoti ke Flyweight ki zaroorat pade — yeh pattern game development ya bohot large-scale simulations ke liye zyada relevant hai.
+3. Visitor
+Kya hai: Naye operations add karna without modifying existing classes, ek "visitor" object different classes pe different operations perform kare.
+Kyun avoid karein: Python ka dynamic/duck-typing nature is pattern ki zaroorat hi kam kar deta hai — Python mein waise hi polymorphism aasan hai, is complex pattern ki zaroorat rarely padti hai.
+4. Composite
+Kya hai: Tree-like structure banana jahan individual aur group objects ko same tareeqe se treat kiya ja sake (jaise folder ke andar files aur sub-folders).
+Kyun avoid karein: Sirf tab use karo jab genuinely recursive/nested hierarchy ho (jaise nested job categories: Tech → Software → Backend). Agar Job Board mein aisi hierarchy nahi hai, to isko force-fit karna galat hoga.
+5. Bridge
+Kya hai: Abstraction aur implementation ko alag rakhna taake dono independently badal sakein.
+Kyun avoid karein: Yeh Strategy pattern se kaafi overlap karta hai. Agar tum already Strategy use kar rahe ho (jaise notification channels ke liye), to Bridge dobara use karna redundant hoga — dono ka concept bohot similar hai
